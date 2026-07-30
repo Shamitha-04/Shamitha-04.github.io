@@ -1100,8 +1100,13 @@ initLinks();
 (function(){
   const img = document.getElementById('portraitImg');
   const ph = document.getElementById('portraitPlaceholder');
-  img.addEventListener('load', ()=>{ img.style.display='block'; ph.style.display='none'; });
-  img.addEventListener('error', ()=>{ img.style.display='none'; ph.style.display='flex'; });
+  const showImg = ()=>{ img.style.display='block'; ph.style.display='none'; };
+  const showPh = ()=>{ img.style.display='none'; ph.style.display='flex'; };
+  img.addEventListener('load', showImg);
+  img.addEventListener('error', showPh);
+  if(img.complete){
+    if(img.naturalWidth > 0){ showImg(); } else { showPh(); }
+  }
 })();
 
 const navToggle = document.getElementById('navToggle');
